@@ -25,6 +25,9 @@
 include_recipe "apache2"
 include_recipe "build-essential"
 
+node.set[:passenger][:root_path] = "#{node[:languages][:ruby][:gems_dir]}/gems/passenger-#{node[:passenger][:version]}"
+node.set[:passenger][:module_path] = "#{node[:passenger][:root_path]}/ext/apache2/mod_passenger.so"
+
 if platform?("centos","redhat")
   package "httpd-devel"
   if node['platform_version'].to_f < 6.0
